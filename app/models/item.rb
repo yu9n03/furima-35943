@@ -7,8 +7,12 @@ class Item < ApplicationRecord
   with_options presence: true do
     validates :name, :text, :image
   end
-  with_options presence: true, numericality: { other_than: 1 } do
+  with_options presence: true, numericality: { other_than: 1, message: "can't be blank" } do
     validates :category_id, :charge_rate_id, :status_id, :prefecture_id, :until_send_id
   end
-  validates :price, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999}
+  validates :price, 
+            presence: true, 
+            numericality: { message: 'is invalid. Input half-width characters'},
+            format: { with: /\A[0-9]+\z/ },
+            inclusion: { in: 300..9999999, message: "is out of setting range"}
 end
