@@ -13,6 +13,5 @@ class Item < ApplicationRecord
   validates :price, 
             presence: true, 
             numericality: { message: 'is invalid. Input half-width characters'},
-            format: { with: /\A[0-9]+\z/ },
             inclusion: { in: 300..9999999, message: "is out of setting range"}
 end
