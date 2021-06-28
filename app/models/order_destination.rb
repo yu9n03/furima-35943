@@ -10,7 +10,7 @@ class OrderDestination
     validates :address
     validates :phone_number, format: {with: /\A\d{10,11}\z/, message:"is too short"} ,numericality: { only_integer: true, message: "is invalid. Input only number"}
   end
-  validates :prefecture_id, numericality: {other_than: 0, message: "can't be blank"}
+  validates :prefecture_id, numericality: {other_than: 1, message: "can't be blank"}
 
   def save
     # order情報を保存し、変数oderに代入する
