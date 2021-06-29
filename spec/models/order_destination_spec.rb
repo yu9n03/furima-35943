@@ -17,6 +17,14 @@ RSpec.describe OrderDestination, type: :model do
         @order_destination.building_name = ''
         expect(@order_destination).to be_valid
       end
+      it 'phone_numberが10桁で保存できること' do
+        @order_destination.phone_number = '1234567890'
+        expect(@order_destination).to be_valid
+      end
+      it 'phone_numberが11桁で保存できること' do
+        @order_destination.phone_number = '12345678901'
+        expect(@order_destination).to be_valid
+      end
     end
 
     context '内容に問題がある場合' do
@@ -52,6 +60,11 @@ RSpec.describe OrderDestination, type: :model do
       end
       it 'phone_numberが9桁では保存できないこと' do
         @order_destination.phone_number = '123456789'
+        @order_destination.valid?
+        expect(@order_destination.errors.full_messages).to include('Phone number is too short')
+      end
+      it 'phone_numberが12桁では保存できないこと' do
+        @order_destination.phone_number = '123456789012'
         @order_destination.valid?
         expect(@order_destination.errors.full_messages).to include('Phone number is too short')
       end
